@@ -5,8 +5,8 @@ import {
 import React from 'react';
 
 const createData = (name, category, date) => {
-    console.log("my object********", { name, category, date });
     return { name, category, date };
+    //
 }
 
 const rows = [

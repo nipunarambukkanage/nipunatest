@@ -35,7 +35,7 @@ function AboutMe(){
                             src="https://lakeoktransport.ca/images/avataaars4.png"
                             sx={{width: 80, height: 80, marginBottom : 2}} />
                             <Typography variant="h6" gutterBottom>
-                                Hello My Friends! Welcome to my Web App!
+                                Hello My Friends! Welcome to my Web App! My Name is Nipuna.
                             </Typography>
                             <Typography>
                                 I am an enthusiastic Programmer. I hereby welcome you to my React Web Application. 
@@ -64,7 +64,7 @@ function AboutMe(){
                     </Grid>
                     <Grid item>
                         <Typography color="textSecondary" variant='h6'> Sandun Nawarathna </Typography>
-                        <Typography> Expertise : HTML, C#, Processing, React </Typography>
+                        <Typography> Hobbies : HTML, C#, Processing, React </Typography>
                         <Typography> Hi my name is Sandun Nawarathna. I am a Software Developer. </Typography>
 
                     </Grid>
