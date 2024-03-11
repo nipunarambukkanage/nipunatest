@@ -53,7 +53,7 @@ const UserProfile = ()  => {
             <Paper style={{padding : 20 , textAlign : 'center' , alignItems : 'center', display : 'flex', justifyContent : 'center', flexDirection: 'column'}}>
                 <Avatar 
                 alt="My Image"
-                src="https://lakeoktransport.ca/images/avataaars3.png"
+                src="https://flxt.tmsimg.com/assets/p186109_i_v9_ad.jpg"
                 sx={{width : 120 , height : 120}} />
                 <Typography variant="subtitle1">
                     {user.name}
