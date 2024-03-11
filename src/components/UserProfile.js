@@ -11,7 +11,7 @@ const UserProfile = ()  => {
             try{
                 const response = await axios.get('http://localhost:5000/get_user');
                 setUser(response?.data);
-            }catch{
+            }catch(error){
                 console.error("Error fetching user data : ", error);
             }
         };
