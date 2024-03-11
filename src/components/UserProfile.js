@@ -4,7 +4,20 @@ import { PaidOutlined } from '@mui/icons-material';
 import axios from 'axios';
 
 const UserProfile = ()  => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(
+        {
+                name : 'No data came from backend',
+                school : 'No data came from backend',
+                dob : 'No data came from backend',
+                email : 'No data came from backend',
+                description : 'No data came from backend',
+                hobby : 'No data came from backend',
+                hometown : 'No data came from backend',
+                age : 'No data came from backend',
+                phone : 'No data came from backend',
+                ambition : 'No data came from backend'
+            }
+    );
 
     useEffect(() => {
         const fetchUserData = async ()=>{
