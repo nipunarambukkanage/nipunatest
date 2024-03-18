@@ -2,23 +2,8 @@ import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
     TablePagination, TableSortLabel
 } from '@mui/material';
-import React from 'react';
-
-const createData = (name, category, date) => {
-    return { name, category, date };
-    //
-}
-
-const rows = [
-    createData("1st Place in Running Event", "Athletics", "2023-04-20"),
-    createData("2nd Place in Singing Contest", "Singing", "2021-02-19"),
-    createData("3rd Place in Music Event", "Music", "2023-11-23"),
-    createData("Passed Term Test", "School", "2023-01-10"),
-    createData("Passed IT Course", "Software Development", "2023-11-13"),
-    createData("2nd Place in Running Event", "Athletics", "2023-03-13"),
-    createData("Went to NASA", "Astronomy", "2023-08-13"),
-    createData("Went to Ferrari Company", "Automobile", "2024-08-13"),
-];
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const headCells = [
     { id: 'name', label: 'Achievement' },
@@ -59,12 +44,34 @@ const MyAchievements = () => {
     const [orderBy, setOrderBy] = React.useState('name');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [achievements, setAchievements] = useState(
+       [
+        {
+            name : "Loading data...",
+            category : "Loading data...",
+            date : "Loading data..."
+        }
+       ]
+    );
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
+
+    useEffect(() => {
+        const fetchAchievementData = async ()=>{
+            try{
+                const response = await axios.get('http://localhost:5000/get_achievements');
+                setAchievements(response?.data);
+            }catch(error){
+                console.error("Error fetching user data : ", error);
+            }
+        };
+
+        fetchAchievementData();
+    }, []);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -75,7 +82,7 @@ const MyAchievements = () => {
         setPage(0);
     }
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page*rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, achievements?.length - page*rowsPerPage);
 
     return (
         <Paper>
@@ -83,7 +90,7 @@ const MyAchievements = () => {
                 <Table>
                     <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
                     <TableBody>
-                        { (rowsPerPage > 0 ? rows.slice(page* rowsPerPage, page * rowsPerPage + rowsPerPage) : rows).map((row) => (
+                        { (rowsPerPage > 0 ? achievements?.slice(page* rowsPerPage, page * rowsPerPage + rowsPerPage) : achievements).map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.category}</TableCell>
@@ -105,7 +112,7 @@ const MyAchievements = () => {
             <TablePagination
                 rowsPerPageOptions={[5,10,25]}
                 component="div"
-                count={rows.length}
+                count={achievements?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
