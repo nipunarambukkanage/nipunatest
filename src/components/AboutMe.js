@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Avatar, Card, CardContent, Grid, Paper, Slide, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const AnimatedCard = styled(Card)`
   transition : transform 0.3s ease-in-out;
@@ -18,7 +19,22 @@ function AboutMe(){
     const handleCardClick = () => {
         setExpanded(!expanded);
     }
+   //---------------------------------------
+    const [aboutMeData ,setAboutMeData] = useState({}); 
 
+    useEffect(() => {
+        const fetchDataAboutMe = async ()=>{
+            try{
+                const response = await axios.get('http://localhost:5000/get_about_me');
+                setAboutMeData(response?.data);
+            }catch(error){
+                console.error("Error fetching user data : ", error);
+            }
+        };
+
+        fetchDataAboutMe();
+    }, []);
+    //------------------------------------
     return (
         <Grid container spacing={3} justifyContent="center" alignItems="center" alignContent="center">
             <Grid item>
@@ -63,9 +79,9 @@ function AboutMe(){
                         />
                     </Grid>
                     <Grid item>
-                        <Typography color="textSecondary" variant='h6'> Sandun Nawarathna </Typography>
-                        <Typography> Hobbies : HTML, C#, Processing, React </Typography>
-                        <Typography> Hi my name is Sandun Nawarathna. I am a Software Developer. </Typography>
+                        <Typography color="textSecondary" variant='h6'> {aboutMeData[0]?.name ? aboutMeData[0].name : "Data not available"}  </Typography>
+                        <Typography> {aboutMeData[0]?.expertise ? aboutMeData[0].expertise : "Data not available"}  </Typography>
+                        <Typography> {aboutMeData[0]?.description ? aboutMeData[0].description : "Data not available"} </Typography>
 
                     </Grid>
                 </Grid>
@@ -79,9 +95,9 @@ function AboutMe(){
                         />
                     </Grid>
                     <Grid item>
-                        <Typography color="textSecondary" variant='h6'> Sahan Sulakshana Silva </Typography>
-                        <Typography > Expertise : HTML, C#, Processing, React </Typography>
-                        <Typography > Hi my name is Sahan Sulakshana Silva. I am a Software Developer. </Typography>
+                    <Typography color="textSecondary" variant='h6'> {aboutMeData[1]?.name ? aboutMeData[1].name : "Data not available"}  </Typography>
+                        <Typography> {aboutMeData[1]?.expertise ? aboutMeData[1].expertise : "Data not available"}  </Typography>
+                        <Typography> {aboutMeData[1]?.description ? aboutMeData[1].description : "Data not available"} </Typography>
                     </Grid>
                 </Grid>
                 <hr></hr>
@@ -94,9 +110,9 @@ function AboutMe(){
                         />
                     </Grid>
                     <Grid item>
-                        <Typography color="textSecondary" variant='h6'> Rusira Samarasekara </Typography>
-                        <Typography > Expertise : HTML, C#, Processing, React </Typography>
-                        <Typography > Hi my name is Rusira Samarasekara. I am a Software Developer. </Typography>
+                    <Typography color="textSecondary" variant='h6'> {aboutMeData[2]?.name ? aboutMeData[2].name : "Data not available"}  </Typography>
+                        <Typography> {aboutMeData[2]?.expertise ? aboutMeData[2].expertise : "Data not available"}  </Typography>
+                        <Typography> {aboutMeData[2]?.description ? aboutMeData[2].description : "Data not available"} </Typography>
                     </Grid>
                 </Grid>
             </CardContent>
