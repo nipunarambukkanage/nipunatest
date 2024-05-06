@@ -1,6 +1,6 @@
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-    TablePagination, TableSortLabel
+    TablePagination, TableSortLabel, Dialog, DialogTitle, DialogContent, TextField, Button, TextareaAutosize
 } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -37,12 +37,15 @@ const EnhancedTableHead = ({ order, orderBy, onRequestSort }) => {
 };
 
 
-
 const MyAchievements = () => {
 
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('name');
     const [page, setPage] = React.useState(0);
+    const [openPopup, setOpenPopup] = useState(false);
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState('');
+
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [achievements, setAchievements] = useState(
        [
@@ -60,10 +63,18 @@ const MyAchievements = () => {
         setOrderBy(property);
     };
 
+    const handleOpenPopup = () =>{
+        setOpenPopup(true);
+    }
+
+    const handleClosePopup = () =>{
+        setOpenPopup(false);
+    }
+
     useEffect(() => {
         const fetchAchievementData = async ()=>{
             try{
-                const response = await axios.get('http://localhost:5000/get_achievements');
+                const response = await axios.get('http://localhost:5000/achievement');
                 setAchievements(response?.data);
             }catch(error){
                 console.error("Error fetching user data : ", error);
@@ -77,6 +88,19 @@ const MyAchievements = () => {
         setPage(newPage);
     };
 
+    const postAchievements = async () => {
+            try{
+                const response = await axios.post('http://localhost:5000/achievement', {
+                    name, category
+                });
+                handleClosePopup();
+                console.log("response of post : ", response);
+                window.location.reload();
+            }catch(error){
+                console.error("Error fetching user data : ", error);
+            }
+    }
+
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
@@ -86,6 +110,42 @@ const MyAchievements = () => {
 
     return (
         <Paper>
+            <Dialog open={openPopup}>
+                <DialogTitle>Add an Achievement</DialogTitle>
+                <DialogContent>
+                    <TextField 
+                        autoFocus
+                        label="Category"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={category}
+                        name="Category" 
+                        placeholder="Category of the achievement" 
+                        id="category"
+                        onChange={(e) => setCategory(e.target.value)}
+                        >
+
+                        </TextField>
+                    <TextField 
+                        autoFocus
+                        label="Achievement Title"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={name}
+                        name="Achievement Title" 
+                        placeholder="Title of the achievement" 
+                        id="name"
+                        onChange={(e) => setName(e.target.value)}
+                        >
+
+                        </TextField>
+                    
+                    <Button onClick={postAchievements}>Add Achievement</Button>
+                    <Button onClick={handleClosePopup}>Cancel</Button>
+                </DialogContent>
+            </Dialog>
             <TableContainer>
                 <Table>
                     <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
@@ -109,6 +169,7 @@ const MyAchievements = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Button variant="contained" onClick={handleOpenPopup}>Add Achievement</Button>
             <TablePagination
                 rowsPerPageOptions={[5,10,25]}
                 component="div"
