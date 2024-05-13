@@ -45,6 +45,8 @@ const MyAchievements = () => {
     const [openPopup, setOpenPopup] = useState(false);
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
+    const [selectedRow, setSelectedRow] = useState(null);
+    const [openDetailsPopup, setOpenDetailsPopup] = useState(false);
 
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [achievements, setAchievements] = useState(
@@ -101,6 +103,19 @@ const MyAchievements = () => {
             }
     }
 
+    const handleRowClick = (row) =>{
+        setSelectedRow(row);
+        setOpenDetailsPopup(true);
+    }
+
+    const handleOpenDetailsPopup = () =>{
+        setOpenDetailsPopup(true);
+    }
+
+    const handleCloseDetailsPopup = () =>{
+        setOpenDetailsPopup(false);
+    }
+
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
@@ -110,6 +125,7 @@ const MyAchievements = () => {
 
     return (
         <Paper>
+            {/* Add achievement popup */}
             <Dialog open={openPopup}>
                 <DialogTitle>Add an Achievement</DialogTitle>
                 <DialogContent>
@@ -146,12 +162,64 @@ const MyAchievements = () => {
                     <Button onClick={handleClosePopup}>Cancel</Button>
                 </DialogContent>
             </Dialog>
+            <Dialog open={openDetailsPopup}>
+                <DialogTitle>{selectedRow?.name}</DialogTitle>
+                <DialogContent>
+                    <TextField 
+                        autoFocus
+                        label="Category"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={selectedRow?.category}
+                        name="Category" 
+                        placeholder="Category of the achievement" 
+                        //id="category"
+                        //onChange={(e) => setCategory(e.target.value)}
+                        >
+
+                        </TextField>
+                    <TextField 
+                        autoFocus
+                        label="Achievement Title"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={selectedRow?.name}
+                        name="Achievement Title" 
+                        placeholder="Title of the achievement" 
+                        //id="name"
+                        //onChange={(e) => setName(e.target.value)}
+                        >
+
+                        </TextField>
+                        <TextField 
+                        autoFocus
+                        label="Date"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={selectedRow?.date}
+                        disabled
+                        // name="Achievement Title" 
+                        // placeholder="Title of the achievement" 
+                        //id="name"
+                        //onChange={(e) => setName(e.target.value)}
+                        >
+
+                        </TextField>
+                    
+                    <Button >Edit Achievement</Button>
+                    <Button >Delete Achievement</Button>
+                    <Button onClick={handleCloseDetailsPopup}>Cancel</Button>
+                </DialogContent>
+            </Dialog>
             <TableContainer>
                 <Table>
                     <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
                     <TableBody>
                         { (rowsPerPage > 0 ? achievements?.slice(page* rowsPerPage, page * rowsPerPage + rowsPerPage) : achievements).map((row) => (
-                            <TableRow key={row.name}>
+                            <TableRow key={row.name} onClick={()=> handleRowClick(row)}>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.category}</TableCell>
                                 <TableCell>{row.date}</TableCell>
