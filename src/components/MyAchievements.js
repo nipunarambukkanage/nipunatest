@@ -219,7 +219,7 @@ const MyAchievements = () => {
                     <EnhancedTableHead order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
                     <TableBody>
                         { (rowsPerPage > 0 ? achievements?.slice(page* rowsPerPage, page * rowsPerPage + rowsPerPage) : achievements).map((row) => (
-                            <TableRow key={row.name} onClick={()=> handleRowClick(row)}>
+                            <TableRow key={row.name} onClick={()=> handleRowClick(row)} style={{cursor : 'pointer'}}>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.category}</TableCell>
                                 <TableCell>{row.date}</TableCell>
