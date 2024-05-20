@@ -116,6 +116,19 @@ const MyAchievements = () => {
         }
     }
 
+    // const editAchievement = async () => {
+    //     try{
+    //         const currentRow = selectedRow;
+    //         const response = await axios.delete(`http://localhost:5000/achievement/${id}`);
+    //         //handleClosePopup();
+    //         console.log("response of post : ", response);
+    //         handleCloseDetailsPopup();
+    //         window.location.reload();
+    //     }catch(error){
+    //         console.error("Error fetching user data : ", error);
+    //     }
+    // }
+
     const handleRowClick = (row) =>{
         console.log("console logging **************** : ", row);
         setSelectedRow(row);
@@ -252,7 +265,7 @@ const MyAchievements = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button variant="contained" onClick={handleOpenPopup}>Add Achievement</Button>
+            <Button variant="outlined" sx={{backgroundColor : 'purple', color : 'white', '&:hover' : {backgroundColor : 'pink', color : 'purple'}}} onClick={handleOpenPopup}>Add Achievement</Button>
             <TablePagination
                 rowsPerPageOptions={[5,10,25]}
                 component="div"
