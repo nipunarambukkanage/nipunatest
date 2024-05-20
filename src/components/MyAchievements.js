@@ -103,9 +103,24 @@ const MyAchievements = () => {
             }
     }
 
+    const deleteAchievement = async () => {
+        try{
+            const id = selectedRow._id;
+            const response = await axios.delete(`http://localhost:5000/achievement/${id}`);
+            //handleClosePopup();
+            console.log("response of post : ", response);
+            handleCloseDetailsPopup();
+            window.location.reload();
+        }catch(error){
+            console.error("Error fetching user data : ", error);
+        }
+    }
+
     const handleRowClick = (row) =>{
+        console.log("console logging **************** : ", row);
         setSelectedRow(row);
         setOpenDetailsPopup(true);
+        console.log("console logging selectedRow **************** : ", selectedRow);
     }
 
     const handleOpenDetailsPopup = () =>{
@@ -210,7 +225,7 @@ const MyAchievements = () => {
                         </TextField>
                     
                     <Button >Edit Achievement</Button>
-                    <Button >Delete Achievement</Button>
+                    <Button onClick={deleteAchievement} >Delete Achievement</Button>
                     <Button onClick={handleCloseDetailsPopup}>Cancel</Button>
                 </DialogContent>
             </Dialog>
