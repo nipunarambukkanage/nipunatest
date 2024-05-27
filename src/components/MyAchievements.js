@@ -116,18 +116,20 @@ const MyAchievements = () => {
         }
     }
 
-    // const editAchievement = async () => {
-    //     try{
-    //         const currentRow = selectedRow;
-    //         const response = await axios.delete(`http://localhost:5000/achievement/${id}`);
-    //         //handleClosePopup();
-    //         console.log("response of post : ", response);
-    //         handleCloseDetailsPopup();
-    //         window.location.reload();
-    //     }catch(error){
-    //         console.error("Error fetching user data : ", error);
-    //     }
-    // }
+    const updateAchievement = async () => {
+        try {
+            const id = selectedRow._id;
+            const response = await axios.put(`http://localhost:5000/achievement/${id}`, {
+                name: selectedRow.name,
+                category: selectedRow.category
+            });
+            handleCloseDetailsPopup();
+            console.log("response of update : ", response);
+            window.location.reload();
+        } catch (error) {
+            console.error("Error updating achievement : ", error);
+        }
+    }
 
     const handleRowClick = (row) =>{
         console.log("console logging **************** : ", row);
@@ -159,20 +161,6 @@ const MyAchievements = () => {
                 <DialogContent>
                     <TextField 
                         autoFocus
-                        label="Category"
-                        margin = "dense"
-                        type="text"
-                        fullWidth
-                        value={category}
-                        name="Category" 
-                        placeholder="Category of the achievement" 
-                        id="category"
-                        onChange={(e) => setCategory(e.target.value)}
-                        >
-
-                        </TextField>
-                    <TextField 
-                        autoFocus
                         label="Achievement Title"
                         margin = "dense"
                         type="text"
@@ -185,7 +173,20 @@ const MyAchievements = () => {
                         >
 
                         </TextField>
-                    
+                        <TextField 
+                        autoFocus
+                        label="Category"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={category}
+                        name="Category" 
+                        placeholder="Category of the achievement" 
+                        id="category"
+                        onChange={(e) => setCategory(e.target.value)}
+                        >
+
+                        </TextField>
                     <Button onClick={postAchievements}>Add Achievement</Button>
                     <Button onClick={handleClosePopup}>Cancel</Button>
                 </DialogContent>
@@ -193,20 +194,6 @@ const MyAchievements = () => {
             <Dialog open={openDetailsPopup}>
                 <DialogTitle>{selectedRow?.name}</DialogTitle>
                 <DialogContent>
-                    <TextField 
-                        autoFocus
-                        label="Category"
-                        margin = "dense"
-                        type="text"
-                        fullWidth
-                        value={selectedRow?.category}
-                        name="Category" 
-                        placeholder="Category of the achievement" 
-                        //id="category"
-                        //onChange={(e) => setCategory(e.target.value)}
-                        >
-
-                        </TextField>
                     <TextField 
                         autoFocus
                         label="Achievement Title"
@@ -217,7 +204,21 @@ const MyAchievements = () => {
                         name="Achievement Title" 
                         placeholder="Title of the achievement" 
                         //id="name"
-                        //onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setSelectedRow({ ...selectedRow, name: e.target.value })}
+                        >
+
+                        </TextField>
+                        <TextField 
+                        autoFocus
+                        label="Category"
+                        margin = "dense"
+                        type="text"
+                        fullWidth
+                        value={selectedRow?.category}
+                        name="Category" 
+                        placeholder="Category of the achievement" 
+                        //id="category"
+                        onChange={(e) => setSelectedRow({ ...selectedRow, category: e.target.value })}
                         >
 
                         </TextField>
@@ -237,7 +238,7 @@ const MyAchievements = () => {
 
                         </TextField>
                     
-                    <Button >Edit Achievement</Button>
+                    <Button onClick={updateAchievement}>Edit Achievement</Button>
                     <Button onClick={deleteAchievement} >Delete Achievement</Button>
                     <Button onClick={handleCloseDetailsPopup}>Cancel</Button>
                 </DialogContent>
