@@ -1,6 +1,6 @@
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
-    TablePagination, TableSortLabel, Dialog, DialogTitle, DialogContent, TextField, Button, TextareaAutosize
+    TablePagination, TableSortLabel, Dialog, DialogTitle, DialogContent, TextField, Button, TextareaAutosize, Select, MenuItem
 } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +10,8 @@ const headCells = [
     { id: 'category', label: 'Achievement Category' },
     { id: 'Date', label: 'Date' },
 ];
+
+const categories = ['Sport', 'Education', 'Music', 'Art', 'Science']; // add this line
 
 const EnhancedTableHead = ({ order, orderBy, onRequestSort }) => {
     const createSortHandler = (property) => (event) => {
@@ -173,20 +175,17 @@ const MyAchievements = () => {
                         >
 
                         </TextField>
-                        <TextField 
-                        autoFocus
-                        label="Category"
-                        margin = "dense"
-                        type="text"
-                        fullWidth
+                        <Select  //from here
                         value={category}
-                        name="Category" 
-                        placeholder="Category of the achievement" 
-                        id="category"
+                        placeholder='Select Category'
                         onChange={(e) => setCategory(e.target.value)}
-                        >
-
-                        </TextField>
+                        fullWidth
+                    >
+                        {categories.map((cat) => (
+                            <MenuItem key={cat} value={cat}>{cat}</MenuItem>
+                        ))}
+                    </Select> 
+                    {/* //to here */}
                     <Button onClick={postAchievements}>Add Achievement</Button>
                     <Button onClick={handleClosePopup}>Cancel</Button>
                 </DialogContent>
@@ -208,20 +207,16 @@ const MyAchievements = () => {
                         >
 
                         </TextField>
-                        <TextField 
-                        autoFocus
-                        label="Category"
-                        margin = "dense"
-                        type="text"
-                        fullWidth
-                        value={selectedRow?.category}
-                        name="Category" 
-                        placeholder="Category of the achievement" 
-                        //id="category"
-                        onChange={(e) => setSelectedRow({ ...selectedRow, category: e.target.value })}
+                        <Select
+                            placeholder='Select Category'
+                            value={selectedRow?.category}
+                            onChange={(e) => setSelectedRow({ ...selectedRow, category: e.target.value })}
+                            fullWidth
                         >
-
-                        </TextField>
+                            {categories.map((cat) => (
+                                <MenuItem key={cat} value={cat}>{cat}</MenuItem>
+                            ))}
+                        </Select>
                         <TextField 
                         autoFocus
                         label="Date"
