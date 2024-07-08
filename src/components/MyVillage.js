@@ -1,7 +1,11 @@
-import { Button, Card, CardContent, Divider, Grid, Paper, TextField, Typography, Snackbar, CircularProgress } from '@mui/material';
+import { Button, Card, CardContent, Divider, Grid, Paper, Typography, Snackbar, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AddVillageDialog from './AddVillageDialog';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+import { Carousel } from 'react-responsive-carousel'; 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const VillageCard = ({ village, onEdit, onDelete }) => (
     <Card>
@@ -10,13 +14,14 @@ const VillageCard = ({ village, onEdit, onDelete }) => (
             <Typography variant="subtitle1">{village?.studentName}</Typography>
             <Typography variant="subtitle2">{village?.district}</Typography>
             <Typography variant="body2">{village?.description}</Typography>
-            <Grid container spacing={2}>
+            <Carousel showArrows={true} showThumbs={false}>
                 {village?.gallery?.map((image, index) => (
-                    <Grid item key={index}>
-                        <img src={image?.imageUrl} alt={image?.caption || 'Gallery Image'} style={{ width: 100, height: 100, objectFit: 'cover' }} />
-                    </Grid>
+                    <div key={index}>
+                        <img src={image?.imageUrl} alt={image?.caption || 'Gallery Image'} style={{ maxHeight: 300, objectFit: 'cover' }} />
+                        <p className="legend">{image?.caption}</p>
+                    </div>
                 ))}
-            </Grid>
+            </Carousel>
             <Typography variant="caption">{new Date(village?.addedDate).toLocaleDateString()}</Typography>
             <Button onClick={() => onEdit(village)}>Edit</Button>
             <Button onClick={() => onDelete(village._id)}>Delete</Button>
