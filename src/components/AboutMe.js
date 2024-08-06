@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Avatar, Card, CardContent, Grid, Paper, Slide, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Typical from 'react-typical';
 
 const AnimatedCard = styled(Card)`
   transition : transform 0.3s ease-in-out;
@@ -53,9 +54,16 @@ function AboutMe(){
                             <Typography variant="h6" gutterBottom>
                                 Hello My Friends! Welcome to my Web App! My Name is Nipuna.
                             </Typography>
-                            <Typography>
-                                I am an enthusiastic Programmer. I hereby welcome you to my React Web Application. 
-                            </Typography>
+                            <Typical
+                                    steps={[
+                                        'I am an enthusiastic Programmer.',
+                                        1000,
+                                        'I hereby welcome you to my React Web Application.',
+                                        1000,
+                                    ]}
+                                    loop={10}
+                                    wrapper="p"
+                                />
                         </CardContent>
                     </AnimatedCard>
                 </Slide>

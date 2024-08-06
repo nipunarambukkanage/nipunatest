@@ -15,7 +15,7 @@ const VillageCard = ({ village, onEdit, onDelete }) => (
                     <div key={index}>
                         <img src={image?.imageUrl} alt={image?.caption
                             || 'Gallery Image'} style={{ maxHeight: 300, objectFit: 'cover' }} />
-                        <p className="legend">{image?.caption}</p>
+                        <p className="legend">{village?.description}</p>
                     </div>
                 ))}
             </Carousel>
