@@ -6,6 +6,7 @@ import Particles from 'react-tsparticles';
 import Lottie from 'react-lottie';
 import carAnimation from './carAnimation.json';
 import Typical from 'react-typical';
+import Fade from 'react-reveal/Fade';
 
 const UserProfile = () => {
     const [user, setUser] = useState({
@@ -131,6 +132,7 @@ const UserProfile = () => {
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={8} lg={9} style={{ marginTop: "64px" }}>
+                <Fade top duration={5000}>
                     <Paper style={{ padding: 20 }}>
                         <Typography variant="subtitle1">
                             <strong>Name: </strong>
@@ -153,6 +155,7 @@ const UserProfile = () => {
                             <Typical steps={[user.description, 1000]} loop={1} wrapper="span" />
                         </Typography>
                     </Paper>
+                </Fade>
                 </Grid>
                 <Grid item xs={12}>
                     <Lottie options={{ loop: true, autoplay: true }} height={400} width={400} animationData={carAnimation} />
