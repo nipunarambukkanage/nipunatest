@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Avatar, Card, CardContent, Grid, Typography, Paper } from '@mui/material';
+import { Avatar, Grid, Typography, Paper } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import Particles from 'react-tsparticles';
@@ -7,6 +7,7 @@ import Lottie from 'react-lottie';
 import carAnimation from './carAnimation.json';
 import Typical from 'react-typical';
 import Fade from 'react-reveal/Fade';
+import { motion } from 'framer-motion';
 
 const UserProfile = () => {
     const [user, setUser] = useState({
@@ -15,11 +16,6 @@ const UserProfile = () => {
         dob: 'No data came from backend',
         email: 'No data came from backend',
         description: 'No data came from backend',
-        hobby: 'No data came from backend',
-        hometown: 'No data came from backend',
-        age: 'No data came from backend',
-        phone: 'No data came from backend',
-        ambition: 'No data came from backend',
         avatar: 'https://flxt.tmsimg.com/assets/p186109_i_v9_ad.jpg' // Default image
     });
 
@@ -117,11 +113,18 @@ const UserProfile = () => {
                     <Paper style={{ padding: 20, textAlign: 'center', alignItems: 'center', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
                         <div {...getRootProps()} style={{ cursor: 'pointer' }}>
                             <input {...getInputProps()} />
-                            <Avatar
-                                alt="My Image"
-                                src={user.avatar}
-                                sx={{ width: 120, height: 120 }}
-                            />
+                            {/* Avatar with Framer Motion for animation */}
+                            <motion.div
+                                style={{ display: 'inline-block', transformOrigin: 'center' }} // Ensure rotation around center
+                                animate={{ rotate: 360 }}
+                                transition={{ repeat: 3, duration: 1, ease: "linear" }}
+                            >
+                                <Avatar
+                                    alt="My Image"
+                                    src={user.avatar}
+                                    sx={{ width: 120, height: 120 }}
+                                />
+                            </motion.div>
                             <Typography variant="subtitle1">
                                 <Typical steps={[user.name, 1000]} loop={1} wrapper="span" />
                             </Typography>
@@ -132,30 +135,30 @@ const UserProfile = () => {
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={8} lg={9} style={{ marginTop: "64px" }}>
-                <Fade top duration={5000}>
-                    <Paper style={{ padding: 20 }}>
-                        <Typography variant="subtitle1">
-                            <strong>Name: </strong>
-                            <Typical steps={[user.name, 1000]} loop={1} wrapper="span" />
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>School: </strong>
-                            <Typical steps={[user.school, 1000]} loop={1} wrapper="span" />
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Date of Birth: </strong>
-                            <Typical steps={[user.dob, 1000]} loop={1} wrapper="span" />
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Email: </strong>
-                            <Typical steps={[user.email, 1000]} loop={1} wrapper="span" />
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            <strong>Description: </strong>
-                            <Typical steps={[user.description, 1000]} loop={1} wrapper="span" />
-                        </Typography>
-                    </Paper>
-                </Fade>
+                    <Fade top duration={5000}>
+                        <Paper style={{ padding: 20 }}>
+                            <Typography variant="subtitle1">
+                                <strong>Name: </strong>
+                                <Typical steps={[user.name, 1000]} loop={1} wrapper="span" />
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                <strong>School: </strong>
+                                <Typical steps={[user.school, 1000]} loop={1} wrapper="span" />
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                <strong>Date of Birth: </strong>
+                                <Typical steps={[user.dob, 1000]} loop={1} wrapper="span" />
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                <strong>Email: </strong>
+                                <Typical steps={[user.email, 1000]} loop={1} wrapper="span" />
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                <strong>Description: </strong>
+                                <Typical steps={[user.description, 1000]} loop={1} wrapper="span" />
+                            </Typography>
+                        </Paper>
+                    </Fade>
                 </Grid>
                 <Grid item xs={12}>
                     <Lottie options={{ loop: true, autoplay: true }} height={400} width={400} animationData={carAnimation} />
