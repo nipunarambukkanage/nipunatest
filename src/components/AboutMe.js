@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Typical from 'react-typical';
 import Fade from 'react-reveal/Fade';
+import { Flip } from 'react-reveal';
 
 const AnimatedCard = styled(Card)`
   transition : transform 0.3s ease-in-out;
@@ -40,13 +41,13 @@ function AboutMe() {
     return (
         <Grid container spacing={3} justifyContent="center" alignItems="center" alignContent="center">
             <Grid item>
-                <Fade top>
+                <Flip right>
                     <Paper elevation={3} style={{ backgroundColor: 'rgb(171 53 152)', padding: '20px', margin: '20px', textAlign: 'center' }} >
                         <Typography variant="h4" style={{ color: '#fff' }}>
                             About Myself
                         </Typography>
                     </Paper>
-                </Fade>
+                </Flip>
                 <Fade top>
                     <AnimatedCard onClick={handleCardClick}
                         style={{ transform: expanded ? 'scale(1.25)' : 'scale(1)' }}>

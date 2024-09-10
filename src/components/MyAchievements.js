@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Zoom } from 'react-reveal';
 
 const headCells = [
     { id: 'name', label: 'Achievement' },
@@ -156,6 +157,7 @@ const MyAchievements = () => {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, achievements?.length - page*rowsPerPage);
 
     return (
+        <Zoom>
         <Paper>
             {/* Add achievement popup */}
             <Dialog open={openPopup}>
@@ -271,6 +273,7 @@ const MyAchievements = () => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage} />       
         </Paper>
+        </Zoom>
     );
 };
 
