@@ -14,6 +14,7 @@ import { loadFull } from 'tsparticles';
 import './App.css';
 import logo from './logo.svg';
 import ParticlesPage from './components/ParticlesPage';
+import LandingPage from './components/LandingPage';
 
 const DrawerItems = [
   { text: 'Home', icon: <HomeRounded />, path: '/' },
@@ -94,6 +95,9 @@ function App() {
             <nav>
               <ul style={{ listStyle: 'none', display: 'flex', gap: '20px' }}>
                 <li>
+                  <Link to="/home" style={{ color: 'white', textDecoration: 'none' }}>Home</Link>
+                </li>
+                <li>
                   <Link to="/user-profile" style={{ color: 'white', textDecoration: 'none' }}>User Profile</Link>
                 </li>
                 <li>
@@ -132,6 +136,7 @@ function App() {
           <Route path="/my-village" element={<MyVillage />} />
           <Route path="/my-achievements" element={<MyAchievements />} />
           <Route path="/particles" element={<ParticlesPage />} />
+          <Route path="/home" element={<LandingPage />} />
         </Routes>
       </div>
     </Router>
