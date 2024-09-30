@@ -6,17 +6,14 @@ const LandingPage = () => {
     return (
         <Box sx={{ backgroundColor: '#f5f5f5', paddingBottom: '50px' }}>
             {/* Jumbotron Section */}
-            <Box
-                className="jumbotron"
-                sx={{
-                    height: '100vh',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    textAlign: 'center',
-                    color: '#fff',
-                    padding: '50px 0'
-                }}>
-                <Container>
+            <Box className="jumbotron">
+                {/* Particle Effect */}
+                <div className="particle"></div>
+                <div className="particle"></div>
+                <div className="particle"></div>
+                <div className="particle"></div>
+
+                <Container sx={{ position: 'relative', zIndex: 1 }}>
                     <Typography variant="h2" sx={{ marginBottom: '20px' }}>
                         Welcome to Our Site
                     </Typography>
@@ -27,8 +24,6 @@ const LandingPage = () => {
                         Get Started
                     </Button>
                 </Container>
-                {/* Interactive Background */}
-                <div className="interactive-bg"></div>
             </Box>
 
             {/* Gallery Section */}
