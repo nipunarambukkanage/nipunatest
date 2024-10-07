@@ -2,7 +2,6 @@
 
 body {
   margin: 0;
-  overflow: hidden; /* Prevent scrollbars from appearing */
 }
 
 .jumbotron {
@@ -11,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: linear-gradient(to right, red, pink);
   overflow: hidden; /* Hide overflow to keep particles within bounds */
 }
 
